@@ -3,6 +3,7 @@ package com.softserve.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,6 +29,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    private List<Hotel> hotels;
 
     public User(long id, String email, String password, Role role) {
         this.id = id;
