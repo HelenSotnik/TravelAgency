@@ -3,6 +3,7 @@ package com.softserve.service;
 import com.softserve.exception.NullEntityReferenceException;
 import com.softserve.model.Role;
 import com.softserve.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -11,12 +12,8 @@ import java.util.List;
 
 @Service
 public class RoleService {
-
+    @Autowired
     private RoleRepository roleRepository;
-
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
 
     public Role create(Role role) {
         if (role != null) {
@@ -38,7 +35,6 @@ public class RoleService {
         }
         throw new NullEntityReferenceException("Role cannot be 'null'");
     }
-
 
     public void delete(long id) {
         roleRepository.delete(readById(id));

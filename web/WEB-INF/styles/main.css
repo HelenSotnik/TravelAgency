@@ -1,9 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     font-size: 18px;
-    margin: 15px;
-    padding: 15px;
-    background-color: white;
+
 }
 
 a {
@@ -14,52 +12,54 @@ a {
 }
 
 a:link {
-    color: orange;
+    color: cornflowerblue;
 }
 
 a:visited {
-    color: orange;
-}
-
-a:focus {
-    background: white;
+    color: cornflowerblue;
 }
 
 a:hover {
     border-bottom: 1px solid;
 }
 
+a:focus {
+    color: unset;
+}
+
 .container {
     background-color: #333333;
+    alignment: left;
     color: whitesmoke;
-    max-width: 1200px;
     max-height: 40px;
     margin: 1px auto;
     padding: 15px;
     text-align: left;
+    width: 100%;
 }
 
-h2 {
-    color: royalblue;
-}
-
-h3 {
+h2, h1, h3 {
     color: #333333;
 }
 
-.error-message {
-    background-color: #FF5722;
-    max-width: 1200px;
-    color: #fff;
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 16em;
 }
 
-input[type="text"],
 select {
     width: 100%;
     padding: 10px;
     font-size: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 17.5em;
 }
 
 input[type="submit"],

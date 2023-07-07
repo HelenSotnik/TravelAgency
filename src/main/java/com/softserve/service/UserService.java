@@ -24,17 +24,11 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
-    private RoleService roleService;
 
     public User saveUser(User user) {
         if (user == null) {
             throw new NullEntityReferenceException("User cannot be 'null'");
         }
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is occupied");
-        }
-      //  user.setRole(roleService.readById(2));
         user.setPassword(user.getPassword());
         return userRepository.save(user);
     }
@@ -52,12 +46,9 @@ public class UserService {
                 () -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
-    public User update(User role) {
-        if (role != null) {
-            readById(role.getId());
-            return userRepository.save(role);
-        }
-        throw new NullEntityReferenceException("User cannot be 'null'");
+    public User update(User user) {
+        User oldUser = readById(user.getId());
+        return userRepository.save(user);
     }
 
     public void delete(long id) {
@@ -67,5 +58,9 @@ public class UserService {
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
         return users.isEmpty() ? new ArrayList<>() : users;
+    }
+
+    public List<User> search(String keyword) {
+        return userRepository.search(keyword);
     }
 }

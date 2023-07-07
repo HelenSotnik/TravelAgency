@@ -1,23 +1,26 @@
-th{
-    text-align: center;
+th {
+    text-align: left;
     color: #333333;
-    background-color: #4CAF50;
+    background-color: #9999ff;
 }
-td{
+
+td {
     min-width: 100px;
-    color: #696969;
+    color: #333333;
     border-bottom: 1px solid #eee;
 }
 
-th,td{
+th, td {
     padding: 10px;
     height: 20px;
 }
-td:first-child{
+
+
+td:first-child {
     width: 100px;
     min-width: 0;
 }
 
-tr:nth-child(odd){
+tr:nth-child(odd) {
     background-color: whitesmoke;
 }

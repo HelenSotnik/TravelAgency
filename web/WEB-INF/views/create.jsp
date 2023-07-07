@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -13,10 +11,9 @@
 <%@include file="header.html" %>
 <div>
     <h2>Create New User</h2>
-</div>
 <%--@elvariable id="user" type="com.softserve.model.User"--%>
 <form:form action="create" method="post" modelAttribute="user">
-    <table align="center">
+    <table class="table" align="center">
         <tr>
             <td>First name:</td>
             <td><form:input path="firstName"/></td>
