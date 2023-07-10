@@ -12,11 +12,11 @@ a {
 }
 
 a:link {
-    color: cornflowerblue;
+    color: #4CAF50;
 }
 
 a:visited {
-    color: cornflowerblue;
+    color: #4CAF50;
 }
 
 a:hover {
@@ -83,8 +83,6 @@ input[type="button"] {
 .button:active {
     background-color: #3e8e41;
 }
-.welcome{
-    width: 100%;
-    height: 100%;
-    background-image: url("/WEB-INF/styles/wp4414506-tropical-paradise-wallpapers.jpg");
+.welcome {
+    background-color: floralwhite;
 }

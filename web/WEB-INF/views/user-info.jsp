@@ -9,6 +9,7 @@
     </style>
 </head>
 <body>
+<div align="center">
 <%@include file="header.html" %>
 <h2>Read User INFO</h2>
 <table class="table">
@@ -34,5 +35,6 @@
         </td>
     </tr>
 </table>
+</div>
 </body>
 </html>

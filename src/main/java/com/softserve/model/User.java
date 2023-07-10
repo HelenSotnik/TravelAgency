@@ -30,7 +30,10 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    @ManyToMany
+    @JoinTable(name = "hotel_client",
+            joinColumns = @JoinColumn(name = "hotel_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id"))
     private List<Hotel> hotels;
 
     public User(long id, String email, String password, Role role) {

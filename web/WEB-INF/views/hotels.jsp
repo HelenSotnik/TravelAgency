@@ -3,30 +3,29 @@
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome page</title>
+    <title>Hotels</title>
     <style>
         <%@include file="../styles/main.css"%>
         <%@include file="../styles/table.css"%>
     </style>
 </head>
 <body>
+<%@include file="header.html" %>
 <div align="center">
-    <%@include file="header-user.html" %>
-    <h1 align="center">Welcome to Paradise Travel Agency</h1>
-    <h3>Here you may find a wide range of hotels all over the world</h3>
     <br>
-    <form method="get" action="/hotels/search-hotel">
+    <form method="get" action="hotels/search-hotel">
         <input type="text" name="keyword"/>
         <input type="submit" value="Search Hotel"/>
     </form>
-    <h3>Full List of Hotels</h3>
+    <h4><a href="/hotels/create">Add New Hotel</a></h4>
+    <h2>Hotels List</h2>
     <table class="table" align="center">
         <thead>
         <tr>
             <th scope="col">Name</th>
             <th scope="col">Location</th>
             <th scope="col">Description</th>
+            <th scope="col" colspan="2">Operations</th>
         </tr>
         </thead>
         <c:forEach items="${hotels}" var="hotel">
@@ -36,6 +35,12 @@
                 </td>
                 <td>${hotel.location}</td>
                 <td>${hotel.description}</td>
+                <td>
+                    <a href="/hotels/${hotel.id}/update">Edit</a>
+                </td>
+                <td>
+                    <a href="/hotels/${hotel.id}/delete">Remove</a>
+                </td>
             </tr>
         </c:forEach>
     </table>
