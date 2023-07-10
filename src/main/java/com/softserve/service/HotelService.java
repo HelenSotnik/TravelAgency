@@ -1,5 +1,8 @@
 package com.softserve.service;
 
+import com.softserve.exception.NullEntityReferenceException;
+import com.softserve.model.Hotel;
+import com.softserve.model.User;
 import com.softserve.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,43 +19,34 @@ public class HotelService {
     @Autowired
     private HotelRepository hotelRepository;
 
-//    @Override
-//    public ToDo create(ToDo role) {
-//        if (role != null) {
-//            return todoRepository.save(role);
-//        }
-//        throw new NullEntityReferenceException("ToDo cannot be 'null'");
-//    }
-//
-//    @Override
-//    public ToDo readById(long id) {
-//        return todoRepository.findById(id).orElseThrow(
-//                () -> new EntityNotFoundException("ToDo with id " + id + " not found"));
-//    }
-//
-//    @Override
-//    public ToDo update(ToDo role) {
-//        if (role != null) {
-//            readById(role.getId());
-//            return todoRepository.save(role);
-//        }
-//        throw new NullEntityReferenceException("ToDo cannot be 'null'");
-//    }
-//
-//    @Override
-//    public void delete(long id) {
-//        todoRepository.delete(readById(id));
-//    }
-//
-//    @Override
-//    public List<ToDo> getAll() {
-//        List<ToDo> todos = todoRepository.findAll();
-//        return todos.isEmpty() ? new ArrayList<>() : todos;
-//    }
-//
-//    @Override
-//    public List<ToDo> getByUserId(long userId) {
-//        List<ToDo> todos = todoRepository.getByUserId(userId);
-//        return todos.isEmpty() ? new ArrayList<>() : todos;
-//    }
+
+    public Hotel create(Hotel hotel) {
+            return hotelRepository.save(hotel);
+    }
+
+    public Hotel readById(long id) {
+        return hotelRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Hotel with id " + id + " not found"));
+    }
+
+    public Hotel update(Hotel hotel) {
+        if (hotel != null) {
+            readById(hotel.getId());
+            return hotelRepository.save(hotel);
+        }
+        throw new NullEntityReferenceException("Hotel cannot be 'null'");
+    }
+
+    public void delete(long id) {
+        hotelRepository.delete(readById(id));
+    }
+
+    public List<Hotel> getAll() {
+        List<Hotel> hotels = hotelRepository.findAll();
+        return hotels.isEmpty() ? new ArrayList<>() : hotels;
+    }
+
+    public List<Hotel> searchHotel(String keyword) {
+        return hotelRepository.searchHotel(keyword);
+    }
 }

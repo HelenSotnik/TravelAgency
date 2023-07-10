@@ -1,6 +1,8 @@
 package com.softserve.controller;
 
+import com.softserve.model.Hotel;
 import com.softserve.model.User;
+import com.softserve.service.HotelService;
 import com.softserve.service.RoleService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/users")
@@ -19,9 +23,13 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private HotelService hotelService;
 
     @GetMapping("/welcome")
     public String welcome(Model model) {
+        List<Hotel> hotels = hotelService.getAll();
+        model.addAttribute("hotels",hotels);
         return "welcome-page";
     }
 

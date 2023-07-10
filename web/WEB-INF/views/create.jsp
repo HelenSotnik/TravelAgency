@@ -7,9 +7,9 @@
         <%@include file="../styles/main.css"%>
     </style>
 </head>
-<body align="center">
+<body>
 <%@include file="header.html" %>
-<div>
+<div align="center">
     <h2>Create New User</h2>
 <%--@elvariable id="user" type="com.softserve.model.User"--%>
 <form:form action="create" method="post" modelAttribute="user">

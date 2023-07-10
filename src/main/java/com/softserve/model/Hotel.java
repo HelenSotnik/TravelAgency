@@ -2,8 +2,6 @@ package com.softserve.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,9 +20,14 @@ public class Hotel {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private User client;
+    @Column(name = "description")
+    private String description;
+
+    @ManyToMany
+    @JoinTable(name = "hotel_client",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "hotel_id"))
+    private List<User> clients;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<Room> rooms;

@@ -18,6 +18,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
                 "SpringDispatcher", new DispatcherServlet(appContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-
+        dispatcher.addMapping("/users");
+        dispatcher.addMapping("/hotels");
+        dispatcher.addMapping("/rooms");
     }
 }

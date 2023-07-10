@@ -3,24 +3,17 @@
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome page</title>
+    <title>Hotel Search Result</title>
     <style>
         <%@include file="../styles/main.css"%>
         <%@include file="../styles/table.css"%>
     </style>
 </head>
 <body>
+<%@include file="header.html" %>
 <div align="center">
-    <%@include file="header-user.html" %>
-    <h1 align="center">Welcome to Paradise Travel Agency</h1>
-    <h3>Here you may find a wide range of hotels all over the world</h3>
+    <h2>Hotel Search Result</h2>
     <br>
-    <form method="get" action="/hotels/search-hotel">
-        <input type="text" name="keyword"/>
-        <input type="submit" value="Search Hotel"/>
-    </form>
-    <h3>Full List of Hotels</h3>
     <table class="table" align="center">
         <thead>
         <tr>
@@ -29,7 +22,7 @@
             <th scope="col">Description</th>
         </tr>
         </thead>
-        <c:forEach items="${hotels}" var="hotel">
+        <c:forEach items="${result}" var="hotel">
             <tr>
                 <td>
                     <a href="/hotels/${hotel.id}/read">${hotel.name}</a>

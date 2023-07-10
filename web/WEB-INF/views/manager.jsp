@@ -10,10 +10,11 @@
 <body>
 <%@include file="header.html" %>
 <div align="center">
-    <h2>Travel Agency Manager</h2>
+    <h2>Welcome to Paradise Travel Agency Manager Page</h2>
     <form method="get" action="search">
         <input type="text" name="keyword"/>
         <input type="submit" value="Search"/>
+    </form>
         <br>
         <br>
         <h3>List of Users</h3>
