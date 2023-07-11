@@ -1,7 +1,11 @@
 package com.softserve.controller;
 
+import com.softserve.model.Booking;
 import com.softserve.model.Hotel;
+import com.softserve.model.Room;
+import com.softserve.model.User;
 import com.softserve.service.HotelService;
+import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -68,4 +75,46 @@ public class HotelController {
         model.addAttribute("result", result);
         return "search-hotel";
     }
+
+    @GetMapping("/{hotelId}/check-rooms")
+    public String checkAvailableRooms(@PathVariable("hotelId") long id, @RequestParam String checkInDate,
+                                      @RequestParam String checkOutDate, Model model) {
+        List<Room> result = hotelService.searchAvailableRooms(
+                LocalDate.parse(checkInDate), LocalDate.parse(checkOutDate), id);
+        Hotel hotel =hotelService.readById(id);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("result", result);
+        return "rooms-result";
+    }
+
+    @GetMapping("/{hotelId}/book/{roomId}")
+    public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId, Model model){
+        model.addAttribute("hotel", hotelService.readById(hotelId));
+        model.addAttribute("room", hotelService.getHotelRoomById(roomId));
+        model.addAttribute("booking", new Booking());
+        return "booking-form";
+    }
+
+    @PostMapping("/{hotelId}/book/{roomId}")
+    public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId,
+                           @ModelAttribute("booking") Booking booking, Model model){
+        model.addAttribute("hotel", hotelService.readById(hotelId));
+        model.addAttribute("room", hotelService.getHotelRoomById(roomId));
+        model.addAttribute("booking", booking);
+        hotelService.bookHotel(hotelId,roomId,booking);
+        return "bookings-list";
+    }
+
+//    @PostMapping("/cancel/{bookingId}")
+//    public String cancelBooking(@PathVariable("bookingId") int bookingId, Model model) {
+//        hotelService.cancelBooking(bookingId);
+//        return "cancellation-confirmation";
+//    }
+//
+//    @GetMapping("/update/{bookingId}")
+//    public String updateBooking(@PathVariable("bookingId") int bookingId, Model model) {
+//        Booking booking = hotelService.getBooking(bookingId);
+//        model.addAttribute("booking", booking);
+//        return "update-booking";
+//    }
 }

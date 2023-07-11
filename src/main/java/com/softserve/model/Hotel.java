@@ -20,14 +20,14 @@ public class Hotel {
     @Column(name = "location", nullable = false)
     private String location;
 
+    @Column(name = "review_score")
+    private String reviewScore;
+
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "hotel_client",
-            joinColumns = @JoinColumn(name = "client_id"),
-            inverseJoinColumns = @JoinColumn(name = "hotel_id"))
-    private List<User> clients;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
+    private List<Booking> bookings;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<Room> rooms;

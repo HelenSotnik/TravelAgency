@@ -30,18 +30,8 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany
-    @JoinTable(name = "hotel_client",
-            joinColumns = @JoinColumn(name = "hotel_id"),
-            inverseJoinColumns = @JoinColumn(name = "client_id"))
-    private List<Hotel> hotels;
-
-    public User(long id, String email, String password, Role role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.REMOVE)
+    private List<Booking> booking;
 
     @Override
     public String toString() {

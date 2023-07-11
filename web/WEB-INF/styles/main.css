@@ -44,7 +44,9 @@ h2, h1, h3 {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type = "number"],
+input[type="date"]{
     width: 100%;
     padding: 10px;
     font-size: 15px;
@@ -83,6 +85,20 @@ input[type="button"] {
 .button:active {
     background-color: #3e8e41;
 }
+
 .welcome {
     background-color: floralwhite;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
 }

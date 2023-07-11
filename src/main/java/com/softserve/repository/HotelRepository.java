@@ -1,6 +1,7 @@
 package com.softserve.repository;
 
 import com.softserve.model.Hotel;
+import com.softserve.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

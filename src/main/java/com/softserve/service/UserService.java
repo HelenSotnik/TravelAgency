@@ -60,6 +60,10 @@ public class UserService {
         return users.isEmpty() ? new ArrayList<>() : users;
     }
 
+    public User getUserByEmail(String email){
+       return userRepository.findUserByEmail(email);
+    }
+
     public List<User> search(String keyword) {
         return userRepository.search(keyword);
     }
