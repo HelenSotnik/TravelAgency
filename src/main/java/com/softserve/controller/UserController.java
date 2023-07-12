@@ -30,7 +30,7 @@ public class UserController {
     public String welcome(Model model) {
         List<Hotel> hotels = hotelService.getAll();
         model.addAttribute("hotels",hotels);
-        return "welcome-page";
+        return "home";
     }
 
 

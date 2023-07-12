@@ -106,4 +106,12 @@ public class HotelService {
     public void cancelBooking(long id) {
         bookingRepository.deleteBookingById(id);
     }
+
+    public Booking updateBooking(Booking booking){
+        if (booking != null) {
+            getBooking(booking.getId());
+            return bookingRepository.save(booking);
+        }
+        throw new NullEntityReferenceException("Booking cannot be 'null'");
+    }
 }

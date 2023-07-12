@@ -1,6 +1,8 @@
 package com.softserve.controller;
 
 
+import com.softserve.dto.BookingDto;
+import com.softserve.dto.BookingTransformer;
 import com.softserve.model.Booking;
 import com.softserve.model.Hotel;
 import com.softserve.model.Room;
@@ -27,25 +29,24 @@ public class BookingController {
     private RoomService roomService;
 
     @GetMapping("/{hotelId}/book/{roomId}")
-    public String bookRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, Model model) {
-        Booking booking = new Booking();
-        model.addAttribute("booking", booking);
+    public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId, Model model) {
+        model.addAttribute("booking", new BookingDto());
         model.addAttribute("hotelId", hotelId);
         model.addAttribute("roomId", roomId);
         return "booking-form";
     }
 
     @PostMapping("/{hotelId}/book/{roomId}")
-    public String bookRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId,
-                           @ModelAttribute("booking") Booking booking) {
+    public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId,
+                           @ModelAttribute("booking") BookingDto bookingDto, Model model) {
         Room room = roomService.readById(roomId);
-        User user = userService.getUserByEmail(booking.getGuestEmail());
+        User user = userService.getUserByEmail(bookingDto.getGuestEmail());
         Hotel hotel = hotelService.readById(hotelId);
-        booking.setRoom(room);
-        booking.setGuest(user);
-        booking.setHotel(hotel);
+
+        Booking booking = BookingTransformer.convertToEntity(bookingDto, room, user, hotel);
         hotelService.bookRoom(booking);
-        return "redirect:/users/welcome";
+        model.addAttribute("userId", user.getId());
+        return "redirect:/bookings/{userId}";
     }
 
     @GetMapping("/{userId}")
@@ -56,15 +57,10 @@ public class BookingController {
     }
 
     @GetMapping("/{bookingId}/delete")
-    public String cancelBooking(@PathVariable("bookingId") int bookingId) {
-        hotelService.cancelBooking(bookingId);
-        return "welcome-page";
-    }
-
-    @GetMapping("/{bookingId}/update")
-    public String updateBooking(@PathVariable("bookingId") int bookingId, Model model) {
+    public String cancelBooking(@PathVariable int bookingId, Model model) {
         Booking booking = hotelService.getBooking(bookingId);
-        model.addAttribute("booking", booking);
-        return "update-booking";
+        hotelService.cancelBooking(bookingId);
+        model.addAttribute("userId", booking.getGuest().getId());
+        return "redirect:/bookings/{userId}";
     }
 }

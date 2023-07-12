@@ -16,6 +16,7 @@
         <table class="table" align="center">
         <tr>
             <td>Guest Full Name:</td>
+
             <td><form:input path="guestFullName"/></td>
         </tr>
         <tr>

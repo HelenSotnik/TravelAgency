@@ -22,7 +22,7 @@
             <th scope="col">Room Description</th>
             <th scope="col">CheckInDate</th>
             <th scope="col">CheckInDate</th>
-            <th scope="col" colspan="2">Operations</th>
+            <th scope="col" colspan="1">Operations</th>
         </tr>
         </thead>
         <c:forEach items="${bookings}" var="booking">
@@ -34,10 +34,7 @@
                 <td>${booking.checkInDate}</td>
                 <td>${booking.checkOutDate}</td>
                 <td>
-                    <a href="/bookings/${booking.id}/update">Edit</a>
-                </td>
-                <td>
-                    <a href="/bookings/${booking.id}/delete">Delete</a>
+                    <a href="/bookings/${booking.id}/delete">Cancel Booking</a>
                 </td>
             </tr>
         </c:forEach>

@@ -12,7 +12,6 @@
 <body>
 <%@include file="header.html" %>
 <div align="center">
-    <h4><a href="/rooms/${hotelId}/create">Add New Room</a></h4>
     <h2>Available Rooms List in ${hotel.name}</h2>
     <br>
     <table class="table" align="center">
