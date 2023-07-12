@@ -22,9 +22,10 @@
     <table class="table" align="center">
         <thead>
         <tr>
-            <th scope="col">Name</th>
+            <th scope="col" width="150px">Name</th>
             <th scope="col">Location</th>
             <th scope="col">Description</th>
+            <th scope="col" width="100px">Review Score</th>
             <th scope="col" colspan="2">Operations</th>
         </tr>
         </thead>
@@ -35,6 +36,7 @@
                 </td>
                 <td>${hotel.location}</td>
                 <td>${hotel.description}</td>
+                <td>${hotel.reviewScore}</td>
                 <td>
                     <a href="/hotels/${hotel.id}/update">Edit</a>
                 </td>

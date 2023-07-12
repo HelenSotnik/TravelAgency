@@ -5,7 +5,6 @@
     <title>Booking Form</title>
     <style>
         <%@include file="../styles/main.css"%>
-        <%@include file="../styles/table.css"%>
     </style>
 </head>
 <body>
@@ -13,24 +12,29 @@
 <div align="center">
     <h1>Booking Form</h1>
     <h2>${hotel.name}</h2>
-    <form action="/hotels/${hotel.id}/book/${room.id}" method="post">
-        <label for="guestName">Guest Name:</label>
-        <input type="text" id="guestName" name="guestName" required><br>
-
-        <label for="guestEmail">Guest Email:</label>
-        <input type="email" id="guestEmail" name="guestEmail" required><br>
-
-        <label for="checkInDate">Check-in Date:</label>
-        <input type="date" id="checkInDate" name="checkInDate" required><br>
-
-        <label for="checkOutDate">Check-out Date:</label>
-        <input type="date" id="checkOutDate" name="checkOutDate" required><br>
-
-        <label for="numberOfGuests">Number of Guests:</label>
-        <input type="number" id="numberOfGuests" name="numberOfGuests" required><br>
-
-        <input type="submit" value="Submit Booking">
-    </form>
+    <form:form action="/bookings/${hotelId}/book/${roomId}" method="post" modelAttribute="booking">
+        <table class="table" align="center">
+        <tr>
+            <td>Guest Full Name:</td>
+            <td><form:input path="guestFullName"/></td>
+        </tr>
+        <tr>
+            <td>Guest Email:</td>
+            <td><form:input path="guestEmail"/></td>
+        </tr>
+        <tr>
+            <td>Check-in Date:</td>
+            <td><form:input type="date" path="checkInDate"/></td>
+        </tr>
+        <tr>
+            <td>Check-out Date:</td>
+            <td><form:input type="date" path="checkOutDate"/></td>
+        </tr>
+        </table>
+        <div>
+            <input type="submit" value="Submit Booking">
+        </div>
+    </form:form>
 </div>
 </body>
 </html>

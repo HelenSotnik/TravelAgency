@@ -11,6 +11,12 @@ import java.util.List;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-   @Query(value = "SELECT b FROM Booking b WHERE b.checkInDate <= :checkIn AND b.checkOutDate >= :checkOut")
+   @Query(value = "SELECT b FROM Booking b " +
+           "WHERE b.checkInDate <= :checkIn " +
+           "AND b.checkOutDate >= :checkOut")
    List<Booking> findByDateInRange(@Param("checkIn") LocalDate checkIn, @Param("checkOut") LocalDate checkOut);
+
+   List<Booking> findBookingsByGuestEmail(String email);
+
+   void deleteBookingById(long id);
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Edit Hotel</title>
+    <title>Edit Room</title>
     <style>
         <%@include file="../styles/main.css"%>
     </style>
@@ -12,30 +12,22 @@
 <body>
 <%@include file="header.html" %>
 <div align="center">
-    <h2>Edit Hotel</h2>
-    <form:form action="/hotels/create" method="post" modelAttribute="hotel">
+    <h2>Edit Room</h2>
+    <form:form action="/rooms/${hotelId}/update/${room.id}" method="post" modelAttribute="room">
         <table>
             <tr>
                 <td>ID: </td>
-                <td>${hotel.id}
+                <td>${room.id}
                     <form:hidden path="id"/>
                 </td>
             </tr>
             <tr>
-                <td>Name: </td>
+                <td>Description: </td>
                 <td><form:input path="name" /></td>
             </tr>
             <tr>
-                <td>Location: </td>
-                <td><form:input path="location" /></td>
-            </tr>
-            <tr>
-                <td>Description: </td>
-                <td><form:input path="description" /></td>
-            </tr>
-            <tr>
-                <td>Review Score:</td>
-                <td><form:input path="reviewScore"/></td>
+                <td>Price per night: </td>
+                <td><form:input path="pricePerNight" /></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Update"></td>

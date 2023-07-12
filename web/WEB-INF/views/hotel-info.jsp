@@ -1,6 +1,6 @@
-<%@ page import="com.softserve.model.User" %>
-<%@ page import="com.softserve.model.Hotel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="com.softserve.model.Hotel" %>
 <html>
 <head>
     <title>Hotel INFO</title>
@@ -39,16 +39,21 @@
 </div>
 <div align="center" >
     <h5 style="color: #3e8e41">Please insert the dates to check if rooms in hotel are available.</h5>
-    <form action="/hotels/${hotel.id}/check-rooms" method="get">
-        <label for="checkInDate">Check-in Date:  </label>
-        <input type="date" id="checkInDate" name="checkInDate" required>
-        <br>
-        <label for="checkOutDate">Check-out Date:</label>
-        <input type="date" id="checkOutDate" name="checkOutDate" required><br>
-        <br>
-        <input type="submit" value="Check Available Rooms">
-    </form>
-
+    <form:form action="/hotels/${hotel.id}/check-rooms" method="get">
+    <table class="table">
+        <tr>
+            <td>Check-in Date:</td>
+            <td><input type="date" id="checkInDate" name="checkInDate" required></td>
+        </tr>
+        <tr>
+            <td>Check-out Date:</td>
+            <td><input type="date" id="checkOutDate" name="checkOutDate" required></td>
+        </tr>
+    </table>
+        <div>
+            <input type="submit" class="btn btn-info" value="Check Available Rooms"/>
+        </div>
+    </form:form>
 </div>
 </body>
 </html>

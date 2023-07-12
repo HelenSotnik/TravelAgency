@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Add hotel</title>
+    <title>Add Room</title>
     <style>
         <%@include file="../styles/main.css"%>
     </style>
@@ -10,25 +10,16 @@
 <body>
 <%@include file="header.html" %>
 <div align="center">
-    <h2>Add New Hotel</h2>
-    <%--@elvariable id="user" type="com.softserve.model.Hotel"--%>
-    <form:form action="create" method="post" modelAttribute="hotel">
+    <h2>Add New Room</h2>
+    <form:form action="/rooms/${hotelId}/create" method="post" modelAttribute="room">
         <table class="table" align="center">
             <tr>
-                <td>Hotel Name:</td>
+                <td>Room Description:</td>
                 <td><form:input path="name"/></td>
             </tr>
             <tr>
-                <td>Description:</td>
-                <td><form:input path="description"/></td>
-            </tr>
-            <tr>
-                <td>Location:</td>
-                <td><form:input path="location"/></td>
-            </tr>
-            <tr>
-                <td>Review Score:</td>
-                <td><form:input path="reviewScore"/></td>
+                <td>Price per night:</td>
+                <td><form:input path="pricePerNight"/></td>
             </tr>
         </table>
         <div>

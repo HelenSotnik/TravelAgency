@@ -3,7 +3,7 @@
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Available Rooms Search</title>
+    <title>Rooms List</title>
     <style>
         <%@include file="../styles/main.css"%>
         <%@include file="../styles/table.css"%>
@@ -13,22 +13,25 @@
 <%@include file="header.html" %>
 <div align="center">
     <h4><a href="/rooms/${hotelId}/create">Add New Room</a></h4>
-    <h2>Available Rooms List in ${hotel.name}</h2>
+    <h2>Rooms List in ${hotel.name}</h2>
     <br>
     <table class="table" align="center">
         <thead>
         <tr>
             <th scope="col">Description</th>
             <th scope="col">Price per Night</th>
-            <th scope="col" colspan="1">Operations</th>
+            <th scope="col" colspan="2">Operations</th>
         </tr>
         </thead>
-        <c:forEach items="${result}" var="room">
+        <c:forEach items="${rooms}" var="room">
             <tr>
                 <td>${room.name}</td>
                 <td>${room.pricePerNight}</td>
                 <td>
-                    <a href="/bookings/${hotel.id}/book/${room.id}">Book</a>
+                    <a href="/rooms/${hotelId}/update/${room.id}">Edit</a>
+                </td>
+                <td>
+                    <a href="/rooms/${hotelId}/delete/${room.id}">Remove</a>
                 </td>
             </tr>
         </c:forEach>

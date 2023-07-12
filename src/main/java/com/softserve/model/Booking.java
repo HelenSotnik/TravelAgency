@@ -16,8 +16,8 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "guest_name", nullable = false)
-    private String guestName;
+    @Column(name = "guest_full_name", nullable = false)
+    private String guestFullName;
 
     @Column(name = "guest_email", nullable = false)
     private String guestEmail;
@@ -27,9 +27,6 @@ public class Booking {
 
     @Column(name = "checkout_date", nullable = false)
     private LocalDate checkOutDate;
-
-    @Column(name = "guests_number", nullable = false)
-    private int numberOfGuests;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
@@ -42,4 +39,5 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
 }

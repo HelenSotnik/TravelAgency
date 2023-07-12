@@ -89,13 +89,7 @@ public class HotelService {
                 () -> new EntityNotFoundException("Room with id " + id + " not found"));
     }
 
-    public void bookHotel(long hotelId, long roomId, Booking booking) {
-        Hotel hotel = readById(hotelId);
-        Room room = getHotelRoomById(roomId);
-        User guest = userService.getUserByEmail(booking.getGuest().getEmail());
-        booking.setHotel(hotel);
-        booking.setGuest(guest);
-        booking.setRoom(room);
+    public void bookRoom(Booking booking) {
         bookingRepository.save(booking);
     }
 
@@ -104,7 +98,12 @@ public class HotelService {
                 () -> new EntityNotFoundException("Booking with id " + id + " not found"));
     }
 
+    public List<Booking> getBookingsByUserId(long id){
+        User guest = userService.readById(id);
+        return bookingRepository.findBookingsByGuestEmail(guest.getEmail());
+    }
+
     public void cancelBooking(long id) {
-        bookingRepository.deleteById(id);
+        bookingRepository.deleteBookingById(id);
     }
 }

@@ -8,6 +8,7 @@ td {
     min-width: 100px;
     color: #333333;
     border-bottom: 1px solid #eee;
+    max-width: fit-content;
 }
 
 th, td {

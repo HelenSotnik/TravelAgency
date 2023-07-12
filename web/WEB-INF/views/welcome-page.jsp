@@ -24,9 +24,12 @@
     <table class="table" align="center">
         <thead>
         <tr>
-            <th scope="col">Name</th>
+        <tr>
+            <th scope="col" width="150px">Name</th>
             <th scope="col">Location</th>
             <th scope="col">Description</th>
+            <th scope="col" width="100px">Review Score</th>
+        </tr>
         </tr>
         </thead>
         <c:forEach items="${hotels}" var="hotel">
@@ -36,6 +39,7 @@
                 </td>
                 <td>${hotel.location}</td>
                 <td>${hotel.description}</td>
+                <td>${hotel.reviewScore}</td>
             </tr>
         </c:forEach>
     </table>
