@@ -21,5 +21,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
         dispatcher.addMapping("/users");
         dispatcher.addMapping("/hotels");
         dispatcher.addMapping("/rooms");
+        dispatcher.addMapping("/bookings");
     }
 }

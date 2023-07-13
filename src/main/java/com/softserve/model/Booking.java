@@ -38,15 +38,4 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", guestFullName='" + guestFullName + '\'' +
-                ", guestEmail='" + guestEmail + '\'' +
-                ", checkInDate=" + checkInDate +
-                ", checkOutDate=" + checkOutDate +
-                '}';
-    }
 }

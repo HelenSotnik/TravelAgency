@@ -23,5 +23,5 @@ VALUES (1,'Sea view room with 2 bed', 120.50,1),
        (12,'Sea view room 2 bed + sofa', 137,5);
 
 INSERT INTO users(id, email, first_name, last_name, password, role_id)
-VALUES (1, 'paradise.manager@gmail.com', 'Yylia','Tigipko','1111',1),
+VALUES (1, 'manager@gmail.com', 'Yylia','Tigipko','1111',1),
        (2, 'user@gmail.com', 'Mihail','Demchenko','2222',2);

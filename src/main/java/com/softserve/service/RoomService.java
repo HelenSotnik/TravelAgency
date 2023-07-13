@@ -4,6 +4,8 @@ import com.softserve.model.Room;
 import com.softserve.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,4 +44,8 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
+    public Room getHotelRoomById(long id) {
+        return roomRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Room with id " + id + " not found"));
+    }
 }

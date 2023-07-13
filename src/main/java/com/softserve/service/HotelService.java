@@ -4,37 +4,28 @@ import com.softserve.exception.NullEntityReferenceException;
 import com.softserve.model.Booking;
 import com.softserve.model.Hotel;
 import com.softserve.model.Room;
-import com.softserve.model.User;
 import com.softserve.repository.BookingRepository;
 import com.softserve.repository.HotelRepository;
 import com.softserve.repository.RoomRepository;
-import com.softserve.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
-@Transactional
 public class HotelService {
 
     @Autowired
     private HotelRepository hotelRepository;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BookingRepository bookingRepository;
-
     @Autowired
     private RoomRepository roomRepository;
-
+    @Autowired
+    private BookingRepository bookingRepository;
 
     public Hotel create(Hotel hotel) {
         return hotelRepository.save(hotel);
@@ -69,49 +60,21 @@ public class HotelService {
 
     public List<Room> searchAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, long hotelId) {
         List<Room> allHotelRooms = roomRepository.findRoomsByHotel_Id(hotelId);
+        List<Booking> bookingsInRange = new ArrayList<>();
 
-        List<Booking> bookingsByDateInRange =
-                bookingRepository.findByDateInRange(checkInDate, checkOutDate)
-                        .stream()
-                        .filter(booking -> booking.getHotel().getId() == hotelId)
-                        .collect(Collectors.toList());
+        Period period = Period.ofDays(1);
+        LocalDate currentDate = checkInDate;
 
-        if (bookingsByDateInRange.size() != 0) {
-            for (Booking b : bookingsByDateInRange) {
+        while (!currentDate.isAfter(checkOutDate)) {
+            bookingsInRange.addAll( bookingRepository.findBookingsByDateInRange(hotelId,currentDate));
+            currentDate = currentDate.plus(period);
+        }
+
+        if (bookingsInRange.size() != 0) {
+            for (Booking b : bookingsInRange) {
                 allHotelRooms.remove(b.getRoom());
             }
         }
         return allHotelRooms;
-    }
-
-    public Room getHotelRoomById(long id) {
-        return roomRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Room with id " + id + " not found"));
-    }
-
-    public void bookRoom(Booking booking) {
-        bookingRepository.save(booking);
-    }
-
-    public Booking getBooking(long id) {
-        return bookingRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Booking with id " + id + " not found"));
-    }
-
-    public List<Booking> getBookingsByUserId(long id){
-        User guest = userService.readById(id);
-        return bookingRepository.findBookingsByGuestEmail(guest.getEmail());
-    }
-
-    public void cancelBooking(long id) {
-        bookingRepository.deleteBookingById(id);
-    }
-
-    public Booking updateBooking(Booking booking){
-        if (booking != null) {
-            getBooking(booking.getId());
-            return bookingRepository.save(booking);
-        }
-        throw new NullEntityReferenceException("Booking cannot be 'null'");
     }
 }

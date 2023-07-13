@@ -1,6 +1,5 @@
 package com.softserve.controller;
 
-import com.softserve.dto.RoleResponse;
 import com.softserve.model.User;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class ManagerController {
+
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public ManagerController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String managerHome(Model model) {
@@ -30,10 +34,5 @@ public class ManagerController {
         List<User> result = userService.search(keyword);
         model.addAttribute("result", result);
         return "search";
-    }
-
-    @GetMapping("/roles")
-    public List<RoleResponse> listRoles() {
-        return userService.getAllRoles();
     }
 }

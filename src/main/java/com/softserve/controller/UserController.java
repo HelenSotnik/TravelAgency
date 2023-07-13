@@ -33,7 +33,6 @@ public class UserController {
         return "home";
     }
 
-
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("user", new User());

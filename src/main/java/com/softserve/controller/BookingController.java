@@ -7,6 +7,7 @@ import com.softserve.model.Booking;
 import com.softserve.model.Hotel;
 import com.softserve.model.Room;
 import com.softserve.model.User;
+import com.softserve.service.BookingService;
 import com.softserve.service.HotelService;
 import com.softserve.service.RoomService;
 import com.softserve.service.UserService;
@@ -21,12 +22,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/bookings")
 public class BookingController {
+
+    private final HotelService hotelService;
+    private final UserService userService;
+    private final RoomService roomService;
+    private final BookingService bookingService;
+
     @Autowired
-    private HotelService hotelService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoomService roomService;
+    public BookingController(HotelService hotelService, UserService userService, RoomService roomService,
+                             BookingService bookingService) {
+        this.hotelService = hotelService;
+        this.userService = userService;
+        this.roomService = roomService;
+        this.bookingService = bookingService;
+    }
 
     @GetMapping("/{hotelId}/book/{roomId}")
     public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId, Model model) {
@@ -44,22 +53,22 @@ public class BookingController {
         Hotel hotel = hotelService.readById(hotelId);
 
         Booking booking = BookingTransformer.convertToEntity(bookingDto, room, user, hotel);
-        hotelService.bookRoom(booking);
+        bookingService.bookRoom(booking);
         model.addAttribute("userId", user.getId());
         return "redirect:/bookings/{userId}";
     }
 
     @GetMapping("/{userId}")
     public String getUserBookings(@PathVariable long userId, Model model) {
-        List<Booking> bookings = hotelService.getBookingsByUserId(userId);
+        List<Booking> bookings = bookingService.getBookingsByUserId(userId);
         model.addAttribute("bookings", bookings);
         return "bookings-list";
     }
 
     @GetMapping("/{bookingId}/delete")
     public String cancelBooking(@PathVariable int bookingId, Model model) {
-        Booking booking = hotelService.getBooking(bookingId);
-        hotelService.cancelBooking(bookingId);
+        Booking booking = bookingService.getBooking(bookingId);
+        bookingService.cancelBooking(bookingId);
         model.addAttribute("userId", booking.getGuest().getId());
         return "redirect:/bookings/{userId}";
     }
