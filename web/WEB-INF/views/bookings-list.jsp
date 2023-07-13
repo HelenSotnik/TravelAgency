@@ -10,9 +10,9 @@
     </style>
 </head>
 <body>
-<%@include file="header.html" %>
+<%@include file="header-user.html" %>
 <div align="center">
-    <h2>${bookings.get(0).guestFullName}'s Bookings List</h2>
+    <h2>${user.firstName} ${user.lastName}'s Bookings List</h2>
     <table class="table" align="center">
         <thead>
         <tr>

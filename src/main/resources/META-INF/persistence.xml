@@ -13,7 +13,6 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-            <property name="spring.datasource.initialization-mode" value="always"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -61,6 +61,8 @@ public class BookingController {
     @GetMapping("/{userId}")
     public String getUserBookings(@PathVariable long userId, Model model) {
         List<Booking> bookings = bookingService.getBookingsByUserId(userId);
+        User user = userService.readById(userId);
+        model.addAttribute("user", user);
         model.addAttribute("bookings", bookings);
         return "bookings-list";
     }

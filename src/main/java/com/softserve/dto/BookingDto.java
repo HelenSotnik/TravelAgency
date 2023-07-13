@@ -1,8 +1,5 @@
 package com.softserve.dto;
 
-import com.softserve.model.Hotel;
-import com.softserve.model.Room;
-import com.softserve.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +21,6 @@ public class BookingDto {
     private String checkInDate;
     @NotBlank
     private String checkOutDate;
-
     private long roomId;
     private long guestId;
     private long hotelId;

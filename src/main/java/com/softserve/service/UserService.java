@@ -16,6 +16,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class UserService {
     @Autowired
     private UserRepository userRepository;

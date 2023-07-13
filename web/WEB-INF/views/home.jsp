@@ -25,10 +25,10 @@
         <thead>
         <tr>
         <tr>
-            <th scope="col" width="150px">Name</th>
+            <th scope="col">Name</th>
             <th scope="col">Location</th>
             <th scope="col">Description</th>
-            <th scope="col" width="100px">Review Score</th>
+            <th scope="col">Review Score</th>
         </tr>
         </tr>
         </thead>

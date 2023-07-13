@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-<%@include file="header.html" %>
+<%@include file="header-user.html" %>
 <div align="center">
     <h2>Available Rooms List in ${hotel.name}</h2>
     <br>

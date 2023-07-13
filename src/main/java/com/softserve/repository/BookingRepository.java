@@ -13,8 +13,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
    @Query(value = "SELECT b FROM Booking b " +
            "WHERE b.hotel.id = :hotelId " +
-           "AND b.checkInDate < :dateToCheck " +
-           "AND b.checkOutDate > :dateToCheck")
+           "AND b.checkInDate <= :dateToCheck " +
+           "AND b.checkOutDate >= :dateToCheck")
    List<Booking> findBookingsByDateInRange(@Param("hotelId") long hotelId, @Param("dateToCheck") LocalDate dateToCheck);
 
    List<Booking> findBookingsByGuestEmail(String email);
