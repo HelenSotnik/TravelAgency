@@ -21,7 +21,7 @@
             <th scope="col">Hotel Name</th>
             <th scope="col">Room Description</th>
             <th scope="col">CheckInDate</th>
-            <th scope="col">CheckInDate</th>
+            <th scope="col">CheckOutDate</th>
             <th scope="col" colspan="1">Operations</th>
         </tr>
         </thead>

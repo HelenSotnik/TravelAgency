@@ -9,7 +9,7 @@ import java.security.Principal;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login-form")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }

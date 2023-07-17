@@ -12,14 +12,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WebAuthenticationProvider implements AuthenticationProvider {
-    private UserDetailsService userService;
-    private PasswordEncoder passwordEncoder;
-
     @Autowired
-    public WebAuthenticationProvider(UserDetailsService userService, PasswordEncoder passwordEncoder){
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserDetailsService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

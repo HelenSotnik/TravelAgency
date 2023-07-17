@@ -32,7 +32,7 @@
         <c:forEach items="${hotels}" var="hotel">
             <tr>
                 <td>
-                    <a href="/hotels/${hotel.id}/read/manager">${hotel.name}</a>
+                    <a href="/agency-manager/hotels/${hotel.id}/read">${hotel.name}</a>
                 </td>
                 <td>${hotel.location}</td>
                 <td>${hotel.description}</td>

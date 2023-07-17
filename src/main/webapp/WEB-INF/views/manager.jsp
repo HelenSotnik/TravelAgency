@@ -12,7 +12,7 @@
 <%@include file="header.html" %>
 <div align="center">
     <h2>Travel Agency Manager Page</h2>
-    <form method="get" action="search">
+    <form method="get" action="agency-manager/search">
         <input type="text" name="keyword"/>
         <input type="submit" value="Search"/>
     </form>

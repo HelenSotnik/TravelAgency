@@ -1,6 +1,5 @@
 package com.softserve.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,11 +18,16 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -39,7 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new WebAuthenticationEntryPoint();
     }
-
+    @Bean
+    public WebAuthenticationProvider webAuthenticationProvider() {
+        return new WebAuthenticationProvider();
+    }
     @Bean
     public UsernamePasswordAuthenticationFilter authenticationFilter() {
         return new WebAuthenticationFilter();
@@ -47,22 +54,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
+        http
+
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/login-form").permitAll()
+                .antMatchers(HttpMethod.GET, "/login").permitAll()
                 .antMatchers("/users/create").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login-form")
+                .loginPage("/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/login-form?error=true")
+                .failureUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login-form")
+                .logoutSuccessUrl("/login")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
 

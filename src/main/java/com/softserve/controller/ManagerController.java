@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/agency-manager")
 public class ManagerController {
 
     private final UserService userService;
@@ -27,7 +27,7 @@ public class ManagerController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String managerHome(Model model) {
         List<User> list = userService.getAll();
         model.addAttribute("users", list);
@@ -41,7 +41,7 @@ public class ManagerController {
         return "search";
     }
 
-    @GetMapping("/hotels/{hotelId}/read/manager")
+    @GetMapping("/hotels/{hotelId}/read")
     public String read(@PathVariable long hotelId, Model model) {
         Hotel hotel = hotelService.readById(hotelId);
         model.addAttribute("hotel", hotel);
