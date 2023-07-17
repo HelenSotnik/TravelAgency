@@ -6,6 +6,7 @@ import com.softserve.service.HotelService;
 import com.softserve.service.RoleService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -46,10 +47,11 @@ public class UserController {
         }
         user.setPassword(user.getPassword());
         user.setRole(roleService.getByRoleName("USER"));
-        userService.saveUser(user);
+        userService.create(user);
         return "redirect:/";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
     @GetMapping("/{userId}/read")
     public String read(@PathVariable long userId, Model model) {
         User user = userService.readById(userId);
@@ -57,6 +59,8 @@ public class UserController {
         return "user-info";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')"
+            +  " and #id == authentication.id")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -65,12 +69,30 @@ public class UserController {
         return "edit";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')"
+            +  " and #id == authentication.id")
+    @PostMapping("/{id}/update")
+    public String update(@PathVariable long id, Model model,
+                         @Validated @ModelAttribute("user") User user, BindingResult result) {
+        User oldUser = userService.readById(id);
+        if (result.hasErrors()) {
+            user.setRole(oldUser.getRole());
+            return "edit";
+        }
+            user.setRole(oldUser.getRole());
+        userService.update(user);
+        return "user-info";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')"
+            +  " and #id == authentication.id")
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
         userService.delete(id);
         return "redirect:/";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/all")
     public String getAll(Model model) {
         model.addAttribute("users", userService.getAll());

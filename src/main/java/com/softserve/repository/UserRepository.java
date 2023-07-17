@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
     @Query(value = "SELECT u FROM User u " +
             "WHERE u.firstName LIKE '%' || :keyword || '%' " +
             "OR u.email LIKE '%' || :keyword || '%' " +
