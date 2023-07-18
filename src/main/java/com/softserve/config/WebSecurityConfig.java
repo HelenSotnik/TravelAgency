@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebMvcSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true,
         securedEnabled = true,
         jsr250Enabled = true)
@@ -63,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login?error=true")
                 .permitAll()
@@ -79,6 +81,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler());
     }
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser("manager@gmail.com").password("{noop}1111").roles("MANAGER");
+//        auth.inMemoryAuthentication().withUser("user@gmail.com").password("{noop}2222").roles("USER");}
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

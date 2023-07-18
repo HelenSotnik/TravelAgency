@@ -1,27 +1,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>LogIn page</title>
 </head>
 <body>
-<h2>Login</h2>
-<form action="<c:url value='/login' />" method="post">
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username" /></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password" /></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Login" /></td>
-        </tr>
-    </table>
+<div class="col-md-offset-2">
+    <h2>LogIn Page</h2>
+</div>
+<form class="form-horizontal" action="/login" method="POST">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Username:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" name="username"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Password:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="password" name="password"/>
+        </div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-6">
+        <input class="btn btn-info" type="submit" value="LogIn"/> <br>
+        <h5>Don`t have an account?</h5>
+        <a href="/users/create">Register now!</a>
+    </div>
 </form>
 </body>
 </html>
