@@ -11,15 +11,11 @@
 </head>
 <body>
 <%@include file="header.html" %>
+
 <div align="center">
-    <h2>HOTEL INFO</h2>
+    <h2>${hotel.name}</h2>
     <table class="table">
         <%Hotel hotel = (Hotel) request.getAttribute("hotel");%>
-        <tr>
-            <td>Name:</td>
-            <td style="font-weight: bold"><%=hotel.getName()%>
-            </td>
-        </tr>
         <tr>
             <td>Location:</td>
             <td style="font-weight: bold"><%=hotel.getLocation()%>

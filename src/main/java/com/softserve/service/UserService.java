@@ -6,7 +6,6 @@ import com.softserve.repository.RoleRepository;
 import com.softserve.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -16,12 +15,9 @@ import java.util.List;
 
 @Service
 @Transactional
-//@EnableTransactionManagement(proxyTargetClass = true)
-public class UserService{
+public class UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
 
     public User create(User role) {
         if (role != null) {

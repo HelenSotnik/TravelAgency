@@ -1,5 +1,9 @@
-<div class="container">
-    <a class="navbar-brand" href="/">Home page</a> |
-    <a class="navbar-brand" href="/agency-manager">Manager page</a> |
-    <a class="navbar-brand" href="/">My Bookings</a>
+<div xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     sec:authorize="isAuthenticated()">
+    <div alignment="center" class="container-header">
+        <a class="navbar-brand" href="/">Home page</a> |
+        <a class="navbar-brand" href="/agency-manager">Manager page</a> |
+        <a class="navbar-form navbar-right" sec:authorize="isAuthenticated()" action="/logout"
+           method="post" href="/logout">LogOut</a>
+    </div>
 </div>

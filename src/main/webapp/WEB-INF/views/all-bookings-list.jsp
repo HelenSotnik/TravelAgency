@@ -10,9 +10,9 @@
     </style>
 </head>
 <body>
-<%@include file="header-user.html" %>
+<%@include file="header.html" %>
 <div align="center">
-    <h2>${user.firstName} ${user.lastName}'s Bookings List</h2>
+    <h2>All Bookings List</h2>
     <table class="table" align="center">
         <thead>
         <tr>

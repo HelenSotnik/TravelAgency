@@ -33,6 +33,10 @@ public class BookingService {
         return bookingRepository.findBookingsByGuestEmail(guest.getEmail());
     }
 
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
+
     public void cancelBooking(long id) {
         bookingRepository.deleteBookingById(id);
     }

@@ -37,6 +37,16 @@ a:focus {
     text-align: left;
     width: 100%;
 }
+.container-header {
+    background-color: #333333;
+    alignment: center;
+    color: whitesmoke;
+    max-height: 40px;
+    margin: 1px auto;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
 
 h2, h1, h3 {
     color: #333333;

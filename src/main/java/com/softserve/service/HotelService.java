@@ -17,11 +17,9 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 @Transactional
 public class HotelService {
-
     @Autowired
     private HotelRepository hotelRepository;
     @Autowired
@@ -68,7 +66,7 @@ public class HotelService {
         LocalDate currentDate = checkInDate;
 
         while (!currentDate.isAfter(checkOutDate)) {
-            bookingsInRange.addAll( bookingRepository.findBookingsByDateInRange(hotelId,currentDate));
+            bookingsInRange.addAll(bookingRepository.findBookingsByDateInRange(hotelId, currentDate));
             currentDate = currentDate.plus(period);
         }
 

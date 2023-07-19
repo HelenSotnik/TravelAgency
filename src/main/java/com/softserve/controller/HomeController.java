@@ -1,7 +1,6 @@
 package com.softserve.controller;
 
 import com.softserve.model.Hotel;
-import com.softserve.model.User;
 import com.softserve.service.HotelService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +21,12 @@ public class HomeController {
         this.userService = userService;
         this.hotelService = hotelService;
     }
-    @PreAuthorize("isAuthenticated()")
+
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
     @GetMapping("/")
     public String userHome(Model model) {
         List<Hotel> hotels = hotelService.getAll();
-        model.addAttribute("hotels",hotels);
+        model.addAttribute("hotels", hotels);
         return "home";
     }
 }
