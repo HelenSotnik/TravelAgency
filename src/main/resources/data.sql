@@ -26,7 +26,7 @@ VALUES ('Sea view room with 2 bed', 120.50, 1),
 INSERT INTO users(email, first_name, last_name, password, role_id)
 VALUES ('manager@gmail.com', 'Olga', 'Solovey', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 1),
        ('user@gmail.com', 'Mihail', 'Demchenko', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
-       ('user@gmail.com', 'Tetiana', 'Mozhevenko', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
-       ('manager@gmail.com', 'Yylia', 'Tzvik', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
-       ('manager@gmail.com', 'Margarita', 'Zozulia', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
-       ('user@gmail.com', 'Olexandr', 'Politov', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2);
+       ('tetiana@gmail.com', 'Tetiana', 'Mozhevenko', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
+       ('yulia@gmail.com', 'Yylia', 'Tzvik', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
+       ('margor@gmail.com', 'Margarita', 'Zozulia', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2),
+       ('alex@gmail.com', 'Olexandr', 'Politov', '$2a$10$CdEJ2PKXgUCIwU4pDQWICuiPjxb1lysoX7jrN.Y4MTMoY9pjfPALO', 2);
