@@ -14,5 +14,5 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "WHERE hotel.name LIKE '%' || :keyword || '%' " +
             "OR hotel.description LIKE '%' || :keyword || '%' " +
             "OR hotel.location LIKE '%' || :keyword || '%'")
-    List<Hotel> searchHotel(@Param("keyword")String keyword);
+    List<Hotel> searchHotel(@Param("keyword") String keyword);
 }

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 @Controller
-public class LoginController {
+public class AuthController {
 
     @GetMapping("/login-form")
     public String login() {
@@ -15,15 +15,14 @@ public class LoginController {
     }
 
     @GetMapping("/accessDenied")
-    public ModelAndView accessDenied(Principal user) {
+    public String accessDenied(Principal user) {
         ModelAndView model = new ModelAndView();
         if (user != null) {
-            model.addObject("error",
-                    "Unfortunately, " +
-                            "you do not have permission to view this page!");
+
+            model.addObject("message", "Sorry, you do not have permission to view this page!");
         }
         model.setViewName("accessDenied");
-        return model;
+        return "accessDenied";
     }
 }
 

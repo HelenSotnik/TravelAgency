@@ -10,6 +10,15 @@ public class WebAuthenticationToken implements Authentication {
 
     private UserDetails userDetails;
     private boolean isAuthenticated;
+    long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public WebAuthenticationToken(UserDetails userDetails) {
         this.userDetails = userDetails;

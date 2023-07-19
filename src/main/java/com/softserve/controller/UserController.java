@@ -4,12 +4,16 @@ import com.softserve.model.User;
 import com.softserve.service.RoleService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/users")
@@ -19,12 +23,14 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
+    @PreAuthorize("hasAuthority('MANAGER') or isAnonymous()")
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("user", new User());
         return "create";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or isAnonymous()")
     @PostMapping("/create")
     public String create(@Validated @ModelAttribute("user") User user, BindingResult result) {
         if (result.hasErrors()) {
@@ -36,13 +42,15 @@ public class UserController {
         return "redirect:/";
     }
 
+    @PostAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/{userId}/read")
-    public String read(@PathVariable long userId, Model model) {
+    public String read(@PathVariable long userId, Model model) throws EntityNotFoundException {
         User user = userService.readById(userId);
         model.addAttribute("user", user);
         return "user-info";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -51,6 +59,7 @@ public class UserController {
         return "edit";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER')")
     @PostMapping("/{id}/update")
     public String update(@PathVariable long id, Model model,
                          @Validated @ModelAttribute("user") User user, BindingResult result) {
@@ -59,18 +68,19 @@ public class UserController {
             user.setRole(oldUser.getRole());
             return "edit";
         }
-            user.setRole(oldUser.getRole());
+        user.setRole(oldUser.getRole());
         userService.update(user);
-        return  "redirect:/agency-manager";
+        return "redirect:/agency-manager";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable("id") long id) {
+    public String delete(@PathVariable("id") long id) throws EntityNotFoundException {
         userService.delete(id);
         return "redirect:/agency-manager";
     }
 
-
+    @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/all")
     public String getAll(Model model) {
         model.addAttribute("users", userService.getAll());
