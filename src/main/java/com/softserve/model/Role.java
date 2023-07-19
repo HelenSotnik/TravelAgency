@@ -1,6 +1,7 @@
 package com.softserve.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "roles")
-public class Role{
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,6 +26,11 @@ public class Role{
     }
 
     public Role() {
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 
     @Override

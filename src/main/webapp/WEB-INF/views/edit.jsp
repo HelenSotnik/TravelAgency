@@ -13,7 +13,7 @@
 <%@include file="header.html" %>
 <div align="center">
     <h2>Edit Customer</h2>
-    <form:form action="/users/create" method="post" modelAttribute="user">
+    <form:form action="update" method="post" modelAttribute="user">
         <table>
             <tr>
                 <td>ID: </td>

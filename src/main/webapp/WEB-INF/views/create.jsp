@@ -8,7 +8,6 @@
     </style>
 </head>
 <body>
-<%@include file="header.html" %>
 <div align="center">
     <h2>Create New User</h2>
     <%--@elvariable id="user" type="com.softserve.model.User"--%>

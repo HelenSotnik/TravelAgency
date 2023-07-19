@@ -12,12 +12,16 @@
 <%@include file="header.html" %>
 <div align="center">
     <h2>Travel Agency Manager Page</h2>
-    <form method="get" action="search">
+    <form method="get" action="agency-manager/search">
         <input type="text" name="keyword"/>
         <input type="submit" value="Search"/>
     </form>
-    <h4><a href="/users/create">Add New User</a></h4>
     <h3>List of Users</h3>
+    <form action="/users/create" method="get">
+        <div align="center">
+            <input type="submit" value="Add New User">
+        </div>
+    </form>
     <table class="table" align="center">
         <thead>
         <tr>

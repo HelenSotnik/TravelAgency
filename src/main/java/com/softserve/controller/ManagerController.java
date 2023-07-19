@@ -5,6 +5,7 @@ import com.softserve.model.User;
 import com.softserve.service.HotelService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@PreAuthorize("hasAuthority('MANAGER')")
+@RequestMapping("/agency-manager")
 public class ManagerController {
 
     private final UserService userService;
@@ -27,7 +30,8 @@ public class ManagerController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/")
+
+    @GetMapping
     public String managerHome(Model model) {
         List<User> list = userService.getAll();
         model.addAttribute("users", list);
@@ -41,8 +45,8 @@ public class ManagerController {
         return "search";
     }
 
-    @GetMapping("/hotels/{hotelId}/read/manager")
-    public String read(@PathVariable long hotelId, Model model) {
+    @GetMapping("/hotels/{hotelId}/read")
+    public String read(@PathVariable long hotelId, Model model) throws EntityNotFoundException {
         Hotel hotel = hotelService.readById(hotelId);
         model.addAttribute("hotel", hotel);
         return "hotel-info-manager";

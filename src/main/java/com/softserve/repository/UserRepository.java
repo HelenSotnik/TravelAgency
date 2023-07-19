@@ -11,11 +11,12 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
     @Query(value = "SELECT u FROM User u " +
             "WHERE u.firstName LIKE '%' || :keyword || '%' " +
             "OR u.email LIKE '%' || :keyword || '%' " +
             "OR u.lastName LIKE '%' || :keyword || '%'")
-    List<User> search(@Param("keyword")String keyword);
+    List<User> search(@Param("keyword") String keyword);
 
     User findUserByEmail(String email);
 }

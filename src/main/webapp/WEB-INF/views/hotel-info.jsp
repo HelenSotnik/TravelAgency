@@ -10,16 +10,11 @@
     </style>
 </head>
 <body>
-<%@include file="header.html" %>
+<%@include file="header-user.html" %>
 <div align="center">
-    <h2>HOTEL INFO</h2>
+    <h2>${hotel.name}</h2>
     <table class="table">
         <%Hotel hotel = (Hotel) request.getAttribute("hotel");%>
-        <tr>
-            <td>Name:</td>
-            <td style="font-weight: bold"><%=hotel.getName()%>
-            </td>
-        </tr>
         <tr>
             <td>Location:</td>
             <td style="font-weight: bold"><%=hotel.getLocation()%>
@@ -35,27 +30,21 @@
             <td style="font-weight: bold"><%=hotel.getReviewScore()%>
             </td>
         </tr>
-        <tr>
-            <td>Rooms:</td>
-            <td style="font-weight: bold">
-                <a href="/rooms/${hotel.id}">All Hotel Rooms</a>
-            </td>
-        </tr>
     </table>
 </div>
 <div align="center" >
     <h5 style="color: #3e8e41">Please insert the dates to check if rooms in hotel are available.</h5>
     <form:form action="/hotels/${hotel.id}/check-rooms" method="get">
-        <table class="table">
-            <tr>
-                <td>Check-in Date:</td>
-                <td><input type="date" id="checkInDate" name="checkInDate" required></td>
-            </tr>
-            <tr>
-                <td>Check-out Date:</td>
-                <td><input type="date" id="checkOutDate" name="checkOutDate" required></td>
-            </tr>
-        </table>
+    <table class="table">
+        <tr>
+            <td>Check-in Date:</td>
+            <td><input type="date" id="checkInDate" name="checkInDate" required></td>
+        </tr>
+        <tr>
+            <td>Check-out Date:</td>
+            <td><input type="date" id="checkOutDate" name="checkOutDate" required></td>
+        </tr>
+    </table>
         <div>
             <input type="submit" class="btn btn-info" value="Check Available Rooms"/>
         </div>

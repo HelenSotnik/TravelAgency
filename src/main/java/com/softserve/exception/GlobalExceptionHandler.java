@@ -1,46 +1,45 @@
 package com.softserve.exception;
 
-import com.softserve.dto.ApiError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-import java.nio.file.AccessDeniedException;
-import java.time.LocalDateTime;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NullEntityReferenceException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ApiError> badRequestHandler(Exception exception) {
-        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST, LocalDateTime.now(), exception.getMessage()), HttpStatus.BAD_REQUEST);
+    public ModelAndView nullEntityReferenceHandleException(NullEntityReferenceException exception) {
+        ModelAndView modelAndView = new ModelAndView("error-400", HttpStatus.BAD_REQUEST);
+        modelAndView.addObject("message", exception.getMessage());
+        return modelAndView;
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ResponseEntity<ApiError> notFoundHandler(Exception exception) {
-        return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, LocalDateTime.now(), exception.getMessage()), HttpStatus.NOT_FOUND);
-
+    public ModelAndView entityNotFoundHandleException(EntityNotFoundException e) {
+        ModelAndView modelAndView = new ModelAndView("error-404", HttpStatus.NOT_FOUND);
+        modelAndView.addObject("message", e.getMessage());
+        return modelAndView;
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ApiError> internalServerErrorHandler(Exception exception) {
-        return new ResponseEntity<>(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, LocalDateTime.now(),
-                exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ModelAndView internalServerErrorException(Exception exception) {
+        ModelAndView modelAndView = new ModelAndView("error-500", HttpStatus.INTERNAL_SERVER_ERROR);
+        modelAndView.addObject("message", exception.getMessage());
+        return modelAndView;
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)
-    public ResponseEntity<ApiError> accessDeniedErrorHandler(HttpServletRequest request, Exception exception) {
-        return new ResponseEntity<>(new ApiError(HttpStatus.FORBIDDEN, LocalDateTime.now(),
-                exception.getMessage()), HttpStatus.FORBIDDEN);
+    public ModelAndView accessDeniedErrorHandler(Exception exception) {
+        ModelAndView modelAndView = new ModelAndView("accessDenied", HttpStatus.INTERNAL_SERVER_ERROR);
+        modelAndView.addObject("message", exception.getMessage());
+        return modelAndView;
     }
 }

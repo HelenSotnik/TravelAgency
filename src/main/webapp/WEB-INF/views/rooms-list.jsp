@@ -12,9 +12,12 @@
 <body>
 <%@include file="header.html" %>
 <div align="center">
-    <h4><a href="/rooms/${hotelId}/create">Add New Room</a></h4>
     <h2>Rooms List in ${hotel.name}</h2>
-    <br>
+    <form action="/rooms/${hotelId}/create" method="get">
+        <div align="center">
+            <input type="submit" value="Add New Room">
+        </div>
+    </form>
     <table class="table" align="center">
         <thead>
         <tr>

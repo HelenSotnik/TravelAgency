@@ -17,8 +17,12 @@
         <input type="text" name="keyword"/>
         <input type="submit" value="Search Hotel"/>
     </form>
-    <h4><a href="/hotels/create">Add New Hotel</a></h4>
     <h2>Hotels List</h2>
+    <form action="/hotels/create" method="get">
+        <div align="center">
+            <input type="submit" value="Add New Hotel">
+        </div>
+    </form>
     <table class="table" align="center">
         <thead>
         <tr>
@@ -32,7 +36,7 @@
         <c:forEach items="${hotels}" var="hotel">
             <tr>
                 <td>
-                    <a href="/hotels/${hotel.id}/read/manager">${hotel.name}</a>
+                    <a href="/agency-manager/hotels/${hotel.id}/read">${hotel.name}</a>
                 </td>
                 <td>${hotel.location}</td>
                 <td>${hotel.description}</td>

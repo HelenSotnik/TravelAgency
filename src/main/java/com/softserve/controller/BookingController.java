@@ -1,6 +1,5 @@
 package com.softserve.controller;
 
-
 import com.softserve.dto.BookingDto;
 import com.softserve.dto.BookingTransformer;
 import com.softserve.model.Booking;
@@ -12,10 +11,10 @@ import com.softserve.service.HotelService;
 import com.softserve.service.RoomService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -37,6 +36,7 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
     @GetMapping("/{hotelId}/book/{roomId}")
     public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId, Model model) {
         model.addAttribute("booking", new BookingDto());
@@ -45,6 +45,7 @@ public class BookingController {
         return "booking-form";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
     @PostMapping("/{hotelId}/book/{roomId}")
     public String bookRoom(@PathVariable long hotelId, @PathVariable long roomId,
                            @ModelAttribute("booking") BookingDto bookingDto, Model model) {
@@ -58,8 +59,9 @@ public class BookingController {
         return "redirect:/bookings/{userId}";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
     @GetMapping("/{userId}")
-    public String getUserBookings(@PathVariable long userId, Model model) {
+    public String getUserBookings(@PathVariable("userId") long userId, Model model) {
         List<Booking> bookings = bookingService.getBookingsByUserId(userId);
         User user = userService.readById(userId);
         model.addAttribute("user", user);
@@ -67,8 +69,17 @@ public class BookingController {
         return "bookings-list";
     }
 
-    @GetMapping("/{bookingId}/delete")
-    public String cancelBooking(@PathVariable int bookingId, Model model) {
+    @PreAuthorize("hasAuthority('MANAGER')")
+    @GetMapping("/all")
+    public String getAllBookings(Model model) {
+        List<Booking> bookings = bookingService.getAllBookings();
+        model.addAttribute("bookings", bookings);
+        return "all-bookings-list";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
+    @GetMapping("/{bookingId}/delete/users/{userId}")
+    public String cancelBooking(@PathVariable int bookingId, @PathVariable("userId") long userId, Model model) {
         Booking booking = bookingService.getBooking(bookingId);
         bookingService.cancelBooking(bookingId);
         model.addAttribute("userId", booking.getGuest().getId());

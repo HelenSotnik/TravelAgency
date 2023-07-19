@@ -13,14 +13,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
         appContext.register(WebMvcConfig.class);
+        appContext.register(WebSecurityConfig.class);
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
                 "SpringDispatcher", new DispatcherServlet(appContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-        dispatcher.addMapping("/users");
-        dispatcher.addMapping("/hotels");
-        dispatcher.addMapping("/rooms");
-        dispatcher.addMapping("/bookings");
     }
 }
