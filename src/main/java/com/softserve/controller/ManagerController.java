@@ -5,6 +5,7 @@ import com.softserve.model.User;
 import com.softserve.service.HotelService;
 import com.softserve.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public class ManagerController {
         this.userService = userService;
         this.hotelService = hotelService;
     }
-
+    @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping
     public String managerHome(Model model) {
         List<User> list = userService.getAll();
@@ -34,6 +35,7 @@ public class ManagerController {
         return "manager";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER')")
     @RequestMapping("/search")
     public String search(@RequestParam String keyword, Model model) {
         List<User> result = userService.search(keyword);
@@ -41,6 +43,7 @@ public class ManagerController {
         return "search";
     }
 
+    @PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/hotels/{hotelId}/read")
     public String read(@PathVariable long hotelId, Model model) {
         Hotel hotel = hotelService.readById(hotelId);
