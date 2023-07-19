@@ -9,9 +9,9 @@ import java.security.Principal;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login")
+    @GetMapping("/login-form")
     public String login() {
-        return "login";
+        return "login-form";
     }
 
     @GetMapping("/accessDenied")

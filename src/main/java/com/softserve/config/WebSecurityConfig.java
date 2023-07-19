@@ -1,9 +1,12 @@
 package com.softserve.config;
 
+import com.softserve.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,10 +27,14 @@ import javax.sql.DataSource;
         jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
-
-    public WebSecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5433/postgres");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("root");
+        return dataSource;
     }
 
     @Bean
@@ -35,43 +42,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new WebAccessDeniedHandler();
-    }
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new WebAuthenticationEntryPoint();
     }
-    @Bean
-    public WebAuthenticationProvider webAuthenticationProvider() {
-        return new WebAuthenticationProvider();
-    }
+
     @Bean
     public UsernamePasswordAuthenticationFilter authenticationFilter() {
         return new WebAuthenticationFilter();
     }
 
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new WebAccessDeniedHandler();
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-
+        http.csrf()
+                .disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/login-form").permitAll()
                 .antMatchers("/users/create").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
+                .loginPage("/login-form")
                 .defaultSuccessUrl("/")
-                .failureUrl("/login?error=true")
+                .failureUrl("/login-form?error=true")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/login-form")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
 
@@ -82,14 +87,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler());
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("manager@gmail.com").password("{noop}1111").roles("MANAGER");
-//        auth.inMemoryAuthentication().withUser("user@gmail.com").password("{noop}2222").roles("USER");}
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    @Autowired
+    protected void configure(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())

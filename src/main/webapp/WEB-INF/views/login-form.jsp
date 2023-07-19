@@ -11,7 +11,7 @@
 <div class="col-md-offset-2">
     <h2>LogIn Page</h2>
 </div>
-<form class="form-horizontal" action="/login" method="POST">
+<form class="form-horizontal" action="/login-form" method="POST">
     <div class="form-group">
         <label class="col-sm-2 control-label">Username:</label>
         <div class="col-sm-6">
