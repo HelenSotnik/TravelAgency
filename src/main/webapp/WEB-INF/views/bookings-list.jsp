@@ -34,7 +34,7 @@
                 <td>${booking.checkInDate}</td>
                 <td>${booking.checkOutDate}</td>
                 <td>
-                    <a href="/bookings/${booking.id}/delete/users/${user.id}">Cancel Booking</a>
+                    <a href="/bookings/${booking.id}/delete">Cancel Booking</a>
                 </td>
             </tr>
         </c:forEach>
