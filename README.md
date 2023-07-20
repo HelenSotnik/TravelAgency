@@ -6,7 +6,7 @@ Travel Agency SpringMvc + Hibernate Application wit Spring Security provides Use
 ![ManagerPage](https://github.com/HelenSotnik/TravelAgency/assets/63450632/1069f2ba-2274-4ae2-8fcf-4c75d5b54e9f)
 ![HotelPage](https://github.com/HelenSotnik/TravelAgency/assets/63450632/6cd73e3e-89ab-430a-93a0-20e43d1f8f9e)
 ![AvailableRooms](https://github.com/HelenSotnik/TravelAgency/assets/63450632/0a61ffe9-ef2a-4694-91f8-e988e62c99be)
-![BookingForm](![BookingsPage](https://github.com/HelenSotnik/TravelAgency/assets/63450632/b7cfa2e8-1d73-4d80-897a-cb1c2b8cc4cf)
+![BookingForm](https://github.com/HelenSotnik/TravelAgency/assets/63450632/b6bd6fdc-77e7-4cbd-9d46-a25b86158ca8)
 ![BookingsPage](https://github.com/HelenSotnik/TravelAgency/assets/63450632/35ab431a-8e8c-4f95-8ad3-62cdfbe76a1b)
 ![AccessDenied](https://github.com/HelenSotnik/TravelAgency/assets/63450632/b6f49451-0aaf-47c1-95de-1e69ab19c47c)
 ![AllRooms](https://github.com/HelenSotnik/TravelAgency/assets/63450632/596c4fc3-6ff8-4501-9583-4654843b37ae)
