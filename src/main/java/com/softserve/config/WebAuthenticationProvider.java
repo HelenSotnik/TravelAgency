@@ -13,24 +13,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebAuthenticationProvider implements AuthenticationProvider {
     @Autowired
-    private UserDetailsServiceImpl userService;
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String name = authentication.getName();
+        String username = authentication.getName();
         String password = authentication.getCredentials().toString();
-
-        UserDetails userDetails = userService.loadUserByUsername(name);
-
-        if (passwordEncoder.matches(password, userDetails.getPassword()))
-            return new WebAuthenticationToken(userDetails);
-        else return null;
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (userDetails != null && passwordEncoder.matches(password, userDetails.getPassword())) {
+            return new WebAuthenticationToken(//UsernamePasswordAuthenticationToken(
+                    userDetails.getUsername(),
+                    userDetails.getPassword(),
+                    userDetails.getAuthorities(),
+                    userDetailsService.getId());
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
-        return aClass.equals(UsernamePasswordAuthenticationToken.class);
+    public boolean supports(Class<?> authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td>New Password: </td>
-                <td><form:input path="password" /></td>
+                <td><form:input type="password" path="password" /></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Update"></td>

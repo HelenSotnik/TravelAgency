@@ -1,16 +1,21 @@
 package com.softserve.config;
 
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class WebAuthenticationToken implements Authentication {
+public class WebAuthenticationToken extends UsernamePasswordAuthenticationToken {
+    private long id;
 
-    private UserDetails userDetails;
-    private boolean isAuthenticated;
-    long id;
+    public WebAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, long id) {
+        super(principal, credentials, authorities);
+        this.id = id;
+    }
+
+    public WebAuthenticationToken(Object principal, Object credentials) {
+        super(principal, credentials);
+    }
 
     public long getId() {
         return id;
@@ -18,44 +23,5 @@ public class WebAuthenticationToken implements Authentication {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public WebAuthenticationToken(UserDetails userDetails) {
-        this.userDetails = userDetails;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userDetails.getAuthorities();
-    }
-
-    @Override
-    public Object getCredentials() {
-        return userDetails.getPassword();
-    }
-
-    @Override
-    public Object getDetails() {
-        return userDetails;
-    }
-
-    @Override
-    public Object getPrincipal() {
-        return userDetails.getUsername();
-    }
-
-    @Override
-    public boolean isAuthenticated() {
-        return isAuthenticated;
-    }
-
-    @Override
-    public void setAuthenticated(boolean b) throws IllegalArgumentException {
-        this.isAuthenticated = b;
-    }
-
-    @Override
-    public String getName() {
-        return userDetails.getUsername();
     }
 }

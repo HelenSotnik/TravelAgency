@@ -59,7 +59,7 @@ public class BookingController {
         return "redirect:/bookings/{userId}";
     }
 
-    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER') and #userId== authentication.id")
     @GetMapping("/{userId}")
     public String getUserBookings(@PathVariable("userId") long userId, Model model) {
         List<Booking> bookings = bookingService.getBookingsByUserId(userId);
@@ -77,7 +77,7 @@ public class BookingController {
         return "all-bookings-list";
     }
 
-    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER') and #userId== authentication.id")
     @GetMapping("/{bookingId}/delete/users/{userId}")
     public String cancelBooking(@PathVariable int bookingId, @PathVariable("userId") long userId, Model model) {
         Booking booking = bookingService.getBooking(bookingId);

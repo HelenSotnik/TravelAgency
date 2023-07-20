@@ -42,15 +42,15 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostAuthorize("hasAuthority('MANAGER')")
-    @GetMapping("/{userId}/read")
-    public String read(@PathVariable long userId, Model model) throws EntityNotFoundException {
-        User user = userService.readById(userId);
+    @PostAuthorize("hasAuthority('MANAGER') or hasAuthority('USER') and #id== authentication.id")
+    @GetMapping("/{id}/read")
+    public String read(@PathVariable long id, Model model) throws EntityNotFoundException {
+        User user = userService.readById(id);
         model.addAttribute("user", user);
         return "user-info";
     }
 
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER') and #id== authentication.id")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -59,7 +59,7 @@ public class UserController {
         return "edit";
     }
 
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER') and #id== authentication.id")
     @PostMapping("/{id}/update")
     public String update(@PathVariable long id, Model model,
                          @Validated @ModelAttribute("user") User user, BindingResult result) {
@@ -73,7 +73,7 @@ public class UserController {
         return "redirect:/agency-manager";
     }
 
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('USER') and #id== authentication.id")
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) throws EntityNotFoundException {
         userService.delete(id);
